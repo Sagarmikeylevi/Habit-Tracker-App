@@ -1,10 +1,10 @@
-
+import HabitTracker from "./components/HabitTracker";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-    </div>
+    <>
+      <HabitTracker />
+    </>
   );
 }
 
