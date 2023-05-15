@@ -5,8 +5,8 @@ import Task from './tasks/Task';
 const HabitTracker = () => {
     return (
         <div className={classes.warpper}>
-            {/* <Task /> */}
-            <SpecificTask />
+            <Task />
+            {/* <SpecificTask /> */}
         </div>
     )
 }

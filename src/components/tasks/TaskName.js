@@ -1,5 +1,5 @@
 import classes from "./TaskName.module.css";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaTrash } from "react-icons/fa";
 
 const TaskName = () => {
   return (
@@ -13,6 +13,7 @@ const TaskName = () => {
             />
           </div>
           <p className={classes.checkedText}>Drink Water</p>
+          <FaTrash className={classes.delete} />
           <div className={classes.checkedBox}>
             <FaCheck className={classes.checked} />
           </div>
@@ -26,6 +27,7 @@ const TaskName = () => {
             />
           </div>
           <p className={classes.uncheckedText}>Drink Water</p>
+          <FaTrash className={classes.delete} />
           <div className={classes.unCheckedBox}>
             <FaCheck className={classes.unchecked} />
           </div>
