@@ -1,10 +1,12 @@
 import classes from './HabitTracker.module.css';
-import Task from './taskdetails/Task';
+import SpecificTask from './specificTask/SpecificTask';
+import Task from './tasks/Task';
 
 const HabitTracker = () => {
     return (
         <div className={classes.warpper}>
-            <Task />
+            {/* <Task /> */}
+            <SpecificTask />
         </div>
     )
 }
