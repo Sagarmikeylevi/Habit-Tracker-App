@@ -1,0 +1,44 @@
+.wrapper {
+    margin-top: -1rem;
+    width: 100%;
+    height: 86%;
+    border-radius: 5px;
+    background:  #f2f2f2;
+}
+
+.wrapper h2 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    font-size: medium;
+    letter-spacing: 1px;
+    font-weight: 530;
+    color: #0d1a00;
+}
+
+.wrapper table {
+    margin-top: -1rem;
+    margin-left: 5%;
+    width: 90%;
+    height: 55%;
+    font-size: small;
+    background: #f2f2f2;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    /* border: 1px solid red; */
+}
+
+.wrapper table thead tr th{
+    color:#00b300;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.wrapper td{
+    padding-left: 1.5rem;
+    font-size: small;
+    color:#001a00;
+    border-radius: 10px;
+}
