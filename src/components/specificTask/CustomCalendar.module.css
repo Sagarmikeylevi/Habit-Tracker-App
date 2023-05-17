@@ -1,9 +1,11 @@
 .wrapper {
-    margin-top: -1rem;
     width: 100%;
-    height: 86%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
     border-radius: 5px;
     background:  #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .wrapper h2 {
@@ -42,3 +44,5 @@
     color:#001a00;
     border-radius: 10px;
 }
+
+
