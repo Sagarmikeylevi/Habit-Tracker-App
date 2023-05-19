@@ -1,5 +1,6 @@
 import classes from './HabitTracker.module.css';
-import CategoryList from './createtasks/CategoryList';
+import CreateTaskForm from './createtasks/CreateTaskForm';
+// import CategoryList from './createtasks/CategoryList';
 // import SpecificTask from './specificTask/SpecificTask';
 // import Task from './tasks/Task';
 
@@ -8,7 +9,8 @@ const HabitTracker = () => {
         <div className={classes.warpper}>
             {/* <Task /> */}
             {/* <SpecificTask /> */}
-            <CategoryList />
+            {/* <CategoryList /> */}
+            <CreateTaskForm />
         </div>
     )
 }

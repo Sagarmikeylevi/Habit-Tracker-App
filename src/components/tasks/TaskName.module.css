@@ -99,7 +99,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #00ff99; */
   background:	 #ffb31a;
   opacity: 0.8;
 }
@@ -115,7 +114,7 @@
 
 .delete {
   font-size: medium;
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
   color: #9999ff;
   opacity: 0.8;
   visibility: hidden;
