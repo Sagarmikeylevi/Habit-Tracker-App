@@ -1,9 +1,10 @@
 import {FaCaretUp, FaCaretDown} from 'react-icons/fa';
 import classes from "./CreateTaskForm.module.css";
+import Card from '../UI/Card';
 
 const CreateTaskForm = () => {
   return (
-    <div className={classes.wrapper}>
+    <Card className={classes.wrapper}>
       <div className={classes.header}>
         <h1>Hi There!</h1>
         <p>Create a new habit for yourself</p>
@@ -21,7 +22,7 @@ const CreateTaskForm = () => {
         </div>
         <button type="submit">Add Task</button>
       </form>
-    </div>
+    </Card>
   );
 };
 

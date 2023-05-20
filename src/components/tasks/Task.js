@@ -1,15 +1,15 @@
-import classes from './Task.module.css';
+import Card from '../UI/Card';
 import TaskCreate from './TaskCreate';
 import TaskDate from './TaskDate';
 import TaskName from './TaskName';
 
 const Task = () => {
     return (
-        <div className={classes.wrapper}>
+        <Card>
             <TaskCreate />
             <TaskDate />
             <TaskName />
-        </div>
+        </Card>
     )
 }
 

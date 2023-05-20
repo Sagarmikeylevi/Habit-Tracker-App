@@ -1,8 +1,9 @@
+import Card from '../UI/Card';
 import classes from './CategoryList.module.css';
 
 const CategoryList = () => {
     return (
-      <div className={classes.wrapper}>
+      <Card className={classes.wrapper}>
         <header>
           <img
             src="https://cdn-icons-png.flaticon.com/128/7794/7794196.png"
@@ -144,7 +145,7 @@ const CategoryList = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </Card>
     );
 }
 

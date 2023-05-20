@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { FaChevronLeft } from 'react-icons/fa';
+// import { FaChevronLeft } from 'react-icons/fa';
 import classes from "./CustomCalendar.module.css";
 import TaskStreak from "./TaskStreak";
 

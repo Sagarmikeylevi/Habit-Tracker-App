@@ -1,9 +1,5 @@
 .wrapper {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  background: #f2f2f2;
-  position: relative;
+    position: relative;
 }
 
 .header {

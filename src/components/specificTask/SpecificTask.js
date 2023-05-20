@@ -1,13 +1,14 @@
-import classes from "./SpecificTask.module.css";
+
 import SpecificTaskName from "./SpecificTaskName";
 import CustomCalendar from "./CustomCalendar";
+import Card from "../UI/Card";
 
 const SpecificTask = () => {
   return (
-    <div className={classes.wrapper}>
+    <Card>
       <SpecificTaskName />
       <CustomCalendar />
-    </div>
+    </Card>
   );
 };
 
