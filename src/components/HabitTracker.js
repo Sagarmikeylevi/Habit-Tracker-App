@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             element: <Category />,
           },
           {
-            path: "task-form",
+            path: "task-form/:link",
             element: <TaskForm />,
           },
         ],

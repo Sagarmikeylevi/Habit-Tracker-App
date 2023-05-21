@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import classes from './TaskCreate.module.css'
 const TaskCreate = () => {
     return (
@@ -6,10 +7,12 @@ const TaskCreate = () => {
           <h1>Journal</h1>
           <p>Habits change into character</p>
         </div>
-        <div className={classes.createTask}>
-          <span className={classes.plus}>+</span>
-          <span className={classes.text}>Add Task</span>
-        </div>
+        <Link to="create/category">
+          <div className={classes.createTask}>
+            <span className={classes.plus}>+</span>
+            <span className={classes.text}>Add Task</span>
+          </div>
+        </Link>
       </div>
     );
 }
