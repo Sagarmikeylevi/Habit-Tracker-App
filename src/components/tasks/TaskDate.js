@@ -19,11 +19,11 @@ const TaskDate = () => {
 
     return (
       <div className={classes.wrapper}>
-        <span>{prevDateByOne.formattedDate}</span>
         <span>{prevDateByTwo.formattedDate}</span>
+        <span>{prevDateByOne.formattedDate}</span>
         <div className={classes.actualDate}>
-            <p className={classes.actualDate_Style}>{currentDate}</p>
-            <p className={classes.actualDate_month}>{currentMonth}</p>
+          <p className={classes.actualDate_Style}>{currentDate}</p>
+          <p className={classes.actualDate_month}>{currentMonth}</p>
         </div>
         <span>{nextDateByOne.formattedDate}</span>
         <span>{nextDateByTwo.formattedDate}</span>

@@ -4,6 +4,7 @@ import Category from "../pages/Category";
 import TaskForm from "../pages/TaskForm";
 import TaskDetails from "../pages/TaskDetails";
 
+
 // Create the router using createBrowserRouter from react-router-dom
 const router = createBrowserRouter([
   {

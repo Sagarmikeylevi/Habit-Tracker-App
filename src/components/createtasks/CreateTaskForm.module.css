@@ -80,24 +80,17 @@ form input:hover {
   cursor: pointer;
 }
 
-.taskFrequency span {
-  font-size: small;
-  color: gray;
-  font-weight: 500;
-  margin-left: -11rem;
-  display: none;
-}
+
 
 .frequencyCounter {
+  user-select: none;
   display: flex;
   flex-direction: column;
   margin-right: 0.5rem;
   font-size: large;
 }
 
-.taskFrequency:hover span {
-  display: flex;
-}
+
 
 .taskFrequency:hover {
   margin-left: -2.5%;

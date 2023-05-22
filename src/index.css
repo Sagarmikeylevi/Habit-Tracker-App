@@ -11,6 +11,7 @@ body {
     align-items: center;
     height: 100vh;
     background: #c1c1d4;
+    user-select: none;
 }
 
 code {
