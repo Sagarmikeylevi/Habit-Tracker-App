@@ -2,10 +2,11 @@ import { useSelector, useDispatch } from "react-redux";
 import classes from "./TaskName.module.css";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { useState } from "react";
-import { updateDays } from "../../store/habitSlice";
+import { removeTask, updateDays } from "../../store/habitSlice";
 
 const TaskName = () => {
   const tasks = useSelector((state) => state.habits.tasks);
+  console.log(tasks);
   const dispatch = useDispatch();
 
   const [taskCompletionStates, setTaskCompletionStates] = useState(
@@ -27,6 +28,10 @@ const TaskName = () => {
       })
     );
   };
+
+  const deleteHandler = (id) => {
+    dispatch(removeTask({id}));
+  }
 
   return (
     <div className={classes.wrapper}>
@@ -58,7 +63,7 @@ const TaskName = () => {
                 <img src={task.categoryURL} alt="category icon" />
               </div>
               <p className={textCondition}>{task.title}</p>
-              <FaTrash className={classes.delete} />
+              <FaTrash className={classes.delete} onClick={() => deleteHandler(task.id)} />
               <div
                 className={checkBoxCondition}
                 onClick={() => toggleTaskCompletion(index, task.id)}

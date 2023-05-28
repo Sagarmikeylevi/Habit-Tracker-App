@@ -30,8 +30,13 @@ const habitSlice = createSlice({
         }
       }
     },
+    removeTask: (state, action) => {
+      const {id} = action.payload;
+      console.log(id);
+      state.tasks = state.tasks.filter(task => task.id !== id);
+    }
   },
 });
 
-export const { addTask, updateDays } = habitSlice.actions;
+export const { addTask, updateDays, removeTask } = habitSlice.actions;
 export default habitSlice.reducer;
