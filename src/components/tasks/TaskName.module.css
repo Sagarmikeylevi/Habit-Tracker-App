@@ -70,11 +70,13 @@
 }
 
 .taskBar p {
+  height: 100%;
   width: 62%;
+  display: flex;
+  align-items: center;
   font-size: medium;
   font-weight: 500;
   letter-spacing: 1px;
-  
 }
 
 .taskBar .checkedText {
@@ -120,7 +122,15 @@
   visibility: hidden;
 }
 
+.moveBtn {
+  font-size: medium;
+  margin-right: 0.8rem;
+  color: #9999ff;
+  opacity: 0.8;
+}
+
 
 .taskBar:hover .delete {
   visibility: visible;
 }
+

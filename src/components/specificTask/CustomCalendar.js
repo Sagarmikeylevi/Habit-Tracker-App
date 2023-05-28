@@ -1,11 +1,22 @@
 import React from "react";
-import { useState } from "react";
-// import { FaChevronLeft } from 'react-icons/fa';
 import classes from "./CustomCalendar.module.css";
 import TaskStreak from "./TaskStreak";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CustomCalendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const tasks = useSelector(state => state.habits.tasks);
+  
+  const { id } = useParams();
+  const task = tasks.find((task) => task.id === id);
+  // console.log(task);
+  // console.log(task.completedDays);
+
+
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+  const currentYear = currentDate.getFullYear();
 
   const getCalendarDates = () => {
     const firstDayOfMonth = new Date(
@@ -44,7 +55,7 @@ const CustomCalendar = () => {
     <div className={classes.wrapper}>
       <div>
         <span></span>
-        <h2>September 2018</h2>
+        <h2>{`${currentMonth}  ${currentYear}`}</h2>
       </div>
 
       <table>
@@ -60,12 +71,35 @@ const CustomCalendar = () => {
           </tr>
         </thead>
         <tbody>
-          {calendarDates.map((date, index) => (
-            <React.Fragment key={index}>
-              {index % 7 === 0 && <tr />}
-              <td>{date ? date.getDate() : ""}</td>
-            </React.Fragment>
-          ))}
+          {calendarDates
+            .reduce((rows, date, index) => {
+              if (index % 7 === 0) {
+                rows.push([]);
+              }
+              rows[rows.length - 1].push(date);
+              return rows;
+            }, [])
+            .map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((date, cellIndex) => {
+                  // Check if the date exists in task.completedDays
+                  const isCompleted = task.completedDays.includes(
+                    date?.getDate()
+                  );
+
+                  // Apply different styles based on completion status
+                  const cellStyles = isCompleted
+                    ? classes.completedDate
+                    : classes.emptyDate;
+
+                  return (
+                    <td key={cellIndex} className={cellStyles}>
+                      {date ? date.getDate() : ""}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
         </tbody>
       </table>
 

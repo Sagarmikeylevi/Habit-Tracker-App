@@ -1,48 +1,72 @@
 .wrapper {
-    width: 100%;
-    height: 85%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    background:  #f2f2f2;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background: #f2f2f2;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .wrapper h2 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 2rem;
-    font-size: medium;
-    letter-spacing: 1px;
-    font-weight: 530;
-    color: #0d1a00;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  font-size: medium;
+  letter-spacing: 1px;
+  font-weight: 530;
+  color: #0d1a00;
 }
 
 .wrapper table {
-    margin-top: -1rem;
-    margin-left: 5%;
-    width: 90%;
-    height: 55%;
-    font-size: small;
-    background: #f2f2f2;
-    padding: 1rem;
-    border-radius: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    cursor: pointer;
-    /* border: 1px solid red; */
+  margin-top: -1rem;
+  margin-left: 5%;
+  width: 90%;
+  height: 55%;
+  font-size: small;
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+  position: relative;
 }
 
-.wrapper table thead tr th{
-    color:#00b300;
-    font-weight: 500;
-    letter-spacing: 1px;
+.wrapper table thead {
+  position: absolute;
+  left: 0;
+  top: 2%;
+  width: 100%;
+  height: 18%;
 }
 
-.wrapper td{
-    padding-left: 1.5rem;
-    font-size: small;
-    color:#001a00;
-    border-radius: 10px;
+.wrapper table thead tr th {
+  padding: 1rem;
+  color: #00b300;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
+.wrapper table tbody {
+  position: absolute;
+  left: 0;
+  top: 18%;
+  width: 100%;
+  height: 80%;
+}
 
+.wrapper table tbody tr td {
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  padding-left: 1.34rem;
+  padding-right: 1.34rem;
+  font-size: small;
+  color: #001a00;
+  border-radius: 10px;
+}
+
+.completedDate {
+  background:#ffa64d;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

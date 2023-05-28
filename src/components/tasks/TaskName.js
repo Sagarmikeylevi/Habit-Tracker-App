@@ -3,11 +3,12 @@ import classes from "./TaskName.module.css";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { useState } from "react";
 import { removeTask, updateDays } from "../../store/habitSlice";
+import { useNavigate } from "react-router-dom";
 
 const TaskName = () => {
   const tasks = useSelector((state) => state.habits.tasks);
-  console.log(tasks);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [taskCompletionStates, setTaskCompletionStates] = useState(
     tasks.map(() => false)
@@ -30,8 +31,12 @@ const TaskName = () => {
   };
 
   const deleteHandler = (id) => {
-    dispatch(removeTask({id}));
-  }
+    dispatch(removeTask({ id }));
+  };
+
+  const moveToDetailshandler = (id) => {
+    navigate(`/task/${id}`);
+  };
 
   return (
     <div className={classes.wrapper}>
@@ -62,8 +67,16 @@ const TaskName = () => {
               <div className={`${classes.taskIcon} ${taskIconCondition}`}>
                 <img src={task.categoryURL} alt="category icon" />
               </div>
-              <p className={textCondition}>{task.title}</p>
-              <FaTrash className={classes.delete} onClick={() => deleteHandler(task.id)} />
+              <p
+                className={textCondition}
+                onClick={() => moveToDetailshandler(task.id)}
+              >
+                {task.title}
+              </p>
+              <FaTrash
+                className={classes.delete}
+                onClick={() => deleteHandler(task.id)}
+              />
               <div
                 className={checkBoxCondition}
                 onClick={() => toggleTaskCompletion(index, task.id)}

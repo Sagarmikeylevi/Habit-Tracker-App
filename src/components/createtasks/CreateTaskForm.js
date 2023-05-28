@@ -44,7 +44,7 @@ const CreateTaskForm = () => {
       categoryURL: decodedLink,
       numOfDays: taskFrequency,
       startingDate: "21-May-2023",
-      completedDays: [],
+      completedDays: [25, 26, 27],
     };
 
     dispatch(addTask(newTask));
