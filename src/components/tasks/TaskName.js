@@ -1,21 +1,31 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classes from "./TaskName.module.css";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { useState } from "react";
+import { updateDays } from "../../store/habitSlice";
 
 const TaskName = () => {
   const tasks = useSelector((state) => state.habits.tasks);
+  const dispatch = useDispatch();
 
   const [taskCompletionStates, setTaskCompletionStates] = useState(
     tasks.map(() => false)
   );
 
-  const toggleTaskCompletion = (index) => {
+  const toggleTaskCompletion = (index, id) => {
     setTaskCompletionStates((prevState) => {
       const updatedStates = [...prevState];
       updatedStates[index] = !updatedStates[index];
       return updatedStates;
     });
+    const date = new Date().getDate();
+    dispatch(
+      updateDays({
+        date,
+        id,
+        isCompleted: !taskCompletionStates[index],
+      })
+    );
   };
 
   return (
@@ -51,7 +61,7 @@ const TaskName = () => {
               <FaTrash className={classes.delete} />
               <div
                 className={checkBoxCondition}
-                onClick={() => toggleTaskCompletion(index)}
+                onClick={() => toggleTaskCompletion(index, task.id)}
               >
                 <FaCheck className={isChecked} />
               </div>
