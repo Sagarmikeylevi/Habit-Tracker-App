@@ -7,8 +7,12 @@ import classes from "./CreateTaskForm.module.css";
 import Card from "../UI/Card";
 import { addTask } from "../../store/habitSlice";
 import { useState } from "react";
+import { getFirestore } from "firebase/firestore";
+import { app } from "../HabitTracker";
+import { addDoc, collection } from "firebase/firestore";
 
 const CreateTaskForm = () => {
+  const firestore = getFirestore(app);
   // State variables to manage the task title and frequency
   const [taskTitle, setTaskTitle] = useState("");
   const [taskFrequency, setTaskFrequency] = useState(1);
@@ -47,7 +51,7 @@ const CreateTaskForm = () => {
   const navigate = useNavigate();
 
   // Event handler for adding a new task
-  const addTaskHandler = (event) => {
+  const addTaskHandler = async (event) => {
     event.preventDefault();
 
     // Creating a new task object with the provided information
@@ -56,15 +60,26 @@ const CreateTaskForm = () => {
       title: taskTitle,
       categoryURL: decodedLink,
       numOfDays: taskFrequency,
-      startingDate: "21-May-2023",
-      completedDays: [25, 26, 27, 28],
+      startingDate: `${new Date().getDate()} - ${new Date().toLocaleString(
+        "default",
+        { month: "long" }
+      )} - ${new Date().getFullYear()}`,
+      completedDays: [],
     };
 
-    // Dispatching an action to add the task to the Redux store
-    dispatch(addTask(newTask));
+    // Add the new task to Firestore
+    try {
+      const tasksCollectionRef = collection(firestore, "tasks");
+      await addDoc(tasksCollectionRef, newTask);
 
-    // Navigating back to the home page
-    navigate("/");
+      // Dispatching an action to add the task to the Redux store
+      dispatch(addTask(newTask));
+
+      // Navigating back to the home page
+      navigate("/");
+    } catch (error) {
+      console.error("Error adding task to Firestore: ", error);
+    }
   };
 
   // Displaying the task frequency based on the selected value

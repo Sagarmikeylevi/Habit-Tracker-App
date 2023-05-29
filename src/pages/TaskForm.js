@@ -1,7 +1,7 @@
 import CreateTaskForm from "../components/createtasks/CreateTaskForm";
 
-const TaskForm = () => {
-    return <CreateTaskForm />
-}
+const TaskForm = ({ firestore }) => {
+  return <CreateTaskForm firestore={firestore} />;
+};
 
 export default TaskForm;
