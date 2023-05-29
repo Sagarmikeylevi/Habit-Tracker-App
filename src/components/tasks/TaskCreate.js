@@ -1,20 +1,26 @@
-import {Link} from 'react-router-dom';
-import classes from './TaskCreate.module.css'
+import { Link } from "react-router-dom";
+import classes from "./TaskCreate.module.css";
+
 const TaskCreate = () => {
-    return (
-      <div className={classes.wrapper}>
-        <div className={classes.header}>
-          <h1>Journal</h1>
-          <p>Habits change into character</p>
-        </div>
-        <Link to="create/category">
-          <div className={classes.createTask}>
-            <span className={classes.plus}>+</span>
-            <span className={classes.text}>Add Task</span>
-          </div>
-        </Link>
+  return (
+    <div className={classes.wrapper}>
+      {/* Render the header section */}
+      <div className={classes.header}>
+        <h1>Journal</h1>
+        <p>Habits change into character</p>
       </div>
-    );
-}
+
+      {/* Render the link to create a new task */}
+      <Link to="create/category">
+        <div className={classes.createTask}>
+          {/* Render the plus symbol */}
+          <span className={classes.plus}>+</span>
+          {/* Render the text "Add Task" */}
+          <span className={classes.text}>Add Task</span>
+        </div>
+      </Link>
+    </div>
+  );
+};
 
 export default TaskCreate;

@@ -5,19 +5,21 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const CustomCalendar = () => {
-  const tasks = useSelector(state => state.habits.tasks);
-  
+  // Accessing the tasks from the Redux store using the useSelector hook
+  const tasks = useSelector((state) => state.habits.tasks);
+
+  // Accessing the 'id' parameter from the URL using the useParams hook
   const { id } = useParams();
+
+  // Finding the task with the matching id
   const task = tasks.find((task) => task.id === id);
-  // console.log(task);
-  // console.log(task.completedDays);
 
-
-
+  // Getting the current date, month, and year
   const currentDate = new Date();
-  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+  const currentMonth = currentDate.toLocaleString("default", { month: "long" });
   const currentYear = currentDate.getFullYear();
 
+  // Function to get an array of calendar dates for the current month
   const getCalendarDates = () => {
     const firstDayOfMonth = new Date(
       currentDate.getFullYear(),
@@ -49,7 +51,44 @@ const CustomCalendar = () => {
     return calendarDates;
   };
 
+  // Getting the array of calendar dates for the current month
   const calendarDates = getCalendarDates();
+
+  // Function to count the streaks of completed tasks
+  const countStreaks = () => {
+    let streakCount = 0;
+    let longestStreak = 0;
+
+    const currentDate = new Date().getDate();
+
+    for (let i = 0; i <= currentDate; i++) {
+      const date = calendarDates[i];
+
+      if (date) {
+        const dayOfMonth = date.getDate();
+
+        // Check if the task for the day is completed
+        const isCompleted = task.completedDays.includes(dayOfMonth);
+
+        if (isCompleted) {
+          streakCount++;
+
+          // Update the longest streak if applicable
+          if (streakCount > longestStreak) {
+            longestStreak = streakCount;
+          }
+        } else {
+          // Reset the streak count if the task is not completed
+          streakCount = 0;
+        }
+      }
+    }
+
+    return { streakCount, longestStreak };
+  };
+
+  // Counting the streaks of completed tasks
+  const { streakCount, longestStreak } = countStreaks();
 
   return (
     <div className={classes.wrapper}>
@@ -103,7 +142,7 @@ const CustomCalendar = () => {
         </tbody>
       </table>
 
-      <TaskStreak />
+      <TaskStreak streakCount={streakCount} longestStreak={longestStreak} />
     </div>
   );
 };

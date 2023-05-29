@@ -9,13 +9,16 @@ import { addTask } from "../../store/habitSlice";
 import { useState } from "react";
 
 const CreateTaskForm = () => {
+  // State variables to manage the task title and frequency
   const [taskTitle, setTaskTitle] = useState("");
   const [taskFrequency, setTaskFrequency] = useState(1);
 
+  // Event handler for updating the task title
   const taskTitleHandler = (event) => {
     setTaskTitle(event.target.value);
   };
 
+  // Function to increase the task frequency by 1
   const increaseFrequency = () => {
     setTaskFrequency((prevFreq) => {
       if (prevFreq === 7) return prevFreq;
@@ -23,6 +26,7 @@ const CreateTaskForm = () => {
     });
   };
 
+  // Function to decrease the task frequency by 1
   const decreaseFrequency = () => {
     setTaskFrequency((prevFreq) => {
       if (prevFreq === 1) return prevFreq;
@@ -30,31 +34,44 @@ const CreateTaskForm = () => {
     });
   };
 
+  // Redux dispatch hook to dispatch actions
   const dispatch = useDispatch();
+
+  // React Router hook to access the URL parameters
   const { link } = useParams();
+
+  // Decoding the URL parameter
   const decodedLink = decodeURIComponent(link);
+
+  // React Router hook for navigation
   const navigate = useNavigate();
 
+  // Event handler for adding a new task
   const addTaskHandler = (event) => {
     event.preventDefault();
 
+    // Creating a new task object with the provided information
     const newTask = {
       id: uuidv4(), // Generate a unique ID using uuidv4()
       title: taskTitle,
       categoryURL: decodedLink,
       numOfDays: taskFrequency,
       startingDate: "21-May-2023",
-      completedDays: [25, 26, 27],
+      completedDays: [25, 26, 27, 28],
     };
 
+    // Dispatching an action to add the task to the Redux store
     dispatch(addTask(newTask));
+
+    // Navigating back to the home page
     navigate("/");
   };
 
-  let showFrequency = <p>{taskFrequency + " " + "day"}</p>;
+  // Displaying the task frequency based on the selected value
+  let showFrequency = <p>{`${taskFrequency} day`}</p>;
 
   if (taskFrequency > 1 && taskFrequency < 7) {
-    showFrequency = <p>{taskFrequency + " " + "days"}</p>;
+    showFrequency = <p>{`${taskFrequency} days`}</p>;
   }
   if (taskFrequency === 7) {
     showFrequency = <p>{"Everyday"}</p>;
