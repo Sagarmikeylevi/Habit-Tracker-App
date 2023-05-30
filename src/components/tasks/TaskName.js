@@ -1,47 +1,101 @@
-import { useSelector, useDispatch } from "react-redux";
+// import { useDispatch, useSelector, } from "react-redux";
 import classes from "./TaskName.module.css";
 import { FaCheck, FaTrash } from "react-icons/fa";
-import { useState } from "react";
-import { removeTask, updateDays } from "../../store/habitSlice";
+import { useEffect, useState } from "react";
+// import { removeTask, updateDays } from "../../store/habitSlice";
 import { useNavigate } from "react-router-dom";
+import { firestore } from "../HabitTracker";
+import { collection, deleteDoc, getDocs, updateDoc } from "firebase/firestore";
 
 const TaskName = () => {
-  // Retrieve tasks from the Redux store
-  const tasks = useSelector((state) => state.habits.tasks);
+  /*
+  // as we are not using Redux for the CRUD operations we dont need this 
+  const tasks = useSelector(state => state.habits.tasks);
   const dispatch = useDispatch();
+  */
+
   const navigate = useNavigate();
 
-  // Manage task completion state using local component state
+  const [taskList, setTaskList] = useState([]); // State to hold the taskList data
+
   const [taskCompletionStates, setTaskCompletionStates] = useState(
-    tasks.map(() => false)
+    Array(taskList.length).fill(false)
   );
 
-  // Toggle the completion state of a task
-  const toggleTaskCompletion = (index, id) => {
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const data = collection(firestore, "tasks");
+        const tasksSnapshot = await getDocs(data);
+        console.log(tasksSnapshot);
+        const taskList = tasksSnapshot.docs.map((doc) => doc.data());
+        // Set the taskList in component state
+        setTaskList(taskList);
+      } catch (error) {
+        console.log("Error in fetching the data", error);
+      }
+    };
+
+    fetchTasks();
+  }, [setTaskCompletionStates]);
+
+  const toggleTaskCompletion = async (index, id) => {
     setTaskCompletionStates((prevState) => {
       const updatedStates = [...prevState];
       updatedStates[index] = !updatedStates[index];
       return updatedStates;
     });
 
+    // Determine whether to add or remove the date from completedDays
     const date = new Date().getDate();
-    // Dispatch an action to update the completion status of the task in the Redux store
+    const isCompleted = !taskCompletionStates[index];
+    /*
+    // as we are not using Redux for the CRUD operations we dont need this 
     dispatch(
       updateDays({
         date,
         id,
-        isCompleted: !taskCompletionStates[index],
+        isCompleted,
       })
-    );
+      */
+    const task = taskList.find((task) => task.id === id);
+    // console.log(task);
+    const completedDays = task.completedDays || []; // Get the existing completedDays array or initialize it if it doesn't exist
+
+    if (isCompleted) {
+      completedDays.push(date); // Add the date to completedDays
+    } else {
+      const dateIndex = completedDays.indexOf(date);
+      if (dateIndex !== -1) {
+        completedDays.splice(dateIndex, 1); // Remove the date from completedDays
+      }
+    }
+
+    // console.log(task);
+
+    //Update the completedDays field in Firestore
+    const taskDocRef = collection(firestore, "tasks");
+    const snapshot = await getDocs(taskDocRef);
+    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
+    await updateDoc(taskRef, { completedDays });
   };
 
-  // Delete a task
-  const deleteHandler = (id) => {
-    // Dispatch an action to remove the task from the Redux store
-    dispatch(removeTask({ id }));
+  const deleteHandler = async (id) => {
+    /*
+    // as we are not using Redux for the CRUD operations we dont need this 
+     dispatch(removeTask({ id }));
+    */
+     const updatedTaskList = [...taskList];
+     const index = updatedTaskList.findIndex((task) => task.id === id);
+     updatedTaskList.splice(index, 1);
+     setTaskList(updatedTaskList);
+
+     const taskDocRef = collection(firestore, "tasks");
+     const snapshot = await getDocs(taskDocRef);
+     const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
+     await deleteDoc(taskRef);
   };
 
-  // Navigate to task details
   const moveToDetailshandler = (id) => {
     navigate(`/task/${id}`);
   };
@@ -49,11 +103,9 @@ const TaskName = () => {
   return (
     <div className={classes.wrapper}>
       <ul className={classes.taskBarList}>
-        {/* Render each task */}
-        {tasks.map((task, index) => {
+        {taskList.map((task, index) => {
           const isTaskCompleted = taskCompletionStates[index];
 
-          // Determine the CSS classes based on the completion state of the task
           const taskBarCondition = isTaskCompleted
             ? classes.checkedTaskBar
             : classes.uncheckedTaskBar;
@@ -75,12 +127,10 @@ const TaskName = () => {
               className={`${classes.taskBar} ${taskBarCondition}`}
               key={task.id}
             >
-              {/* Render the task icon */}
               <div className={`${classes.taskIcon} ${taskIconCondition}`}>
                 <img src={task.categoryURL} alt="category icon" />
               </div>
 
-              {/* Render the task title */}
               <p
                 className={textCondition}
                 onClick={() => moveToDetailshandler(task.id)}
@@ -88,13 +138,11 @@ const TaskName = () => {
                 {task.title}
               </p>
 
-              {/* Render the delete button */}
               <FaTrash
                 className={classes.delete}
                 onClick={() => deleteHandler(task.id)}
               />
 
-              {/* Render the task completion checkbox */}
               <div
                 className={checkBoxCondition}
                 onClick={() => toggleTaskCompletion(index, task.id)}

@@ -3,8 +3,9 @@ import Home from "../pages/Home";
 import Category from "../pages/Category";
 import TaskForm from "../pages/TaskForm";
 import TaskDetails from "../pages/TaskDetails";
+
 import { initializeApp } from "firebase/app";
-// import { getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 // web app's Firebase configuration
 const firebaseConfig = {
@@ -17,9 +18,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
-// const firestore = getFirestore(app);
-
+const app = initializeApp(firebaseConfig);
+export const firestore = getFirestore(app);
 
 // Create the router using createBrowserRouter from react-router-dom
 const router = createBrowserRouter([
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
 // Create a component called HabitTracker
 const HabitTracker = () => {
   // Render the RouterProvider component with the created router
-  return <RouterProvider router={router}  />;
+  return <RouterProvider router={router} />;
 };
 
 export default HabitTracker;

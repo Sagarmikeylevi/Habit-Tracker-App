@@ -1,3 +1,6 @@
+
+
+// as we are not using Redux for the CRUD operations we dont need this 
 import { createSlice } from "@reduxjs/toolkit";
 
 // Create a Redux slice for managing habits
@@ -18,6 +21,7 @@ const habitSlice = createSlice({
         startingDate: newTask.startingDate,
         completedDays: newTask.completedDays,
       });
+      
     },
     // Update the completion status of a task for a specific date
     updateDays: (state, action) => {
@@ -34,6 +38,9 @@ const habitSlice = createSlice({
             (day) => day !== date
           );
         }
+        //Update task in Firestore
+        // todo
+        
       }
     },
     // Remove a task from the state
@@ -41,6 +48,7 @@ const habitSlice = createSlice({
       const { id } = action.payload;
       // Filter out the task with the specified ID from the tasks array
       state.tasks = state.tasks.filter((task) => task.id !== id);
+      
     },
   },
 });

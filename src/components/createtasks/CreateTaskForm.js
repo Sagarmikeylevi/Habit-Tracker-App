@@ -7,13 +7,11 @@ import classes from "./CreateTaskForm.module.css";
 import Card from "../UI/Card";
 import { addTask } from "../../store/habitSlice";
 import { useState } from "react";
-import { getFirestore } from "firebase/firestore";
-import { app } from "../HabitTracker";
+import { firestore } from "../HabitTracker";
 import { addDoc, collection } from "firebase/firestore";
 
 const CreateTaskForm = () => {
-  const firestore = getFirestore(app);
-  // State variables to manage the task title and frequency
+  
   const [taskTitle, setTaskTitle] = useState("");
   const [taskFrequency, setTaskFrequency] = useState(1);
 
@@ -56,7 +54,7 @@ const CreateTaskForm = () => {
 
     // Creating a new task object with the provided information
     const newTask = {
-      id: uuidv4(), // Generate a unique ID using uuidv4()
+      id: uuidv4(),// Generate a unique ID using uuidv4()
       title: taskTitle,
       categoryURL: decodedLink,
       numOfDays: taskFrequency,
@@ -67,8 +65,8 @@ const CreateTaskForm = () => {
       completedDays: [],
     };
 
-    // Add the new task to Firestore
-    try {
+     // Add the new task to Firestore
+     try {
       const tasksCollectionRef = collection(firestore, "tasks");
       await addDoc(tasksCollectionRef, newTask);
 
