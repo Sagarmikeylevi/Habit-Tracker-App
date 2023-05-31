@@ -1,19 +1,7 @@
-import React from "react";
 import classes from "./CustomCalendar.module.css";
 import TaskStreak from "./TaskStreak";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-const CustomCalendar = () => {
-  // Accessing the tasks from the Redux store using the useSelector hook
-  const tasks = useSelector((state) => state.habits.tasks);
-
-  // Accessing the 'id' parameter from the URL using the useParams hook
-  const { id } = useParams();
-
-  // Finding the task with the matching id
-  const task = tasks.find((task) => task.id === id);
-
+const CustomCalendar = ({ task }) => {
   // Getting the current date, month, and year
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString("default", { month: "long" });
@@ -88,6 +76,7 @@ const CustomCalendar = () => {
   };
 
   // Counting the streaks of completed tasks
+
   const { streakCount, longestStreak } = countStreaks();
 
   return (
@@ -96,7 +85,6 @@ const CustomCalendar = () => {
         <span></span>
         <h2>{`${currentMonth}  ${currentYear}`}</h2>
       </div>
-
       <table>
         <thead>
           <tr>
@@ -141,7 +129,6 @@ const CustomCalendar = () => {
             ))}
         </tbody>
       </table>
-
       <TaskStreak streakCount={streakCount} longestStreak={longestStreak} />
     </div>
   );

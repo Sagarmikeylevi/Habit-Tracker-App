@@ -1,19 +1,12 @@
-// import { useDispatch, useSelector, } from "react-redux";
 import classes from "./TaskName.module.css";
 import { FaCheck, FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
-// import { removeTask, updateDays } from "../../store/habitSlice";
+
 import { useNavigate } from "react-router-dom";
 import { firestore } from "../HabitTracker";
 import { collection, deleteDoc, getDocs, updateDoc } from "firebase/firestore";
 
 const TaskName = () => {
-  /*
-  // as we are not using Redux for the CRUD operations we dont need this 
-  const tasks = useSelector(state => state.habits.tasks);
-  const dispatch = useDispatch();
-  */
-
   const navigate = useNavigate();
 
   const [taskList, setTaskList] = useState([]); // State to hold the taskList data
@@ -27,7 +20,6 @@ const TaskName = () => {
       try {
         const data = collection(firestore, "tasks");
         const tasksSnapshot = await getDocs(data);
-        console.log(tasksSnapshot);
         const taskList = tasksSnapshot.docs.map((doc) => doc.data());
         // Set the taskList in component state
         setTaskList(taskList);
@@ -49,21 +41,15 @@ const TaskName = () => {
     // Determine whether to add or remove the date from completedDays
     const date = new Date().getDate();
     const isCompleted = !taskCompletionStates[index];
-    /*
-    // as we are not using Redux for the CRUD operations we dont need this 
-    dispatch(
-      updateDays({
-        date,
-        id,
-        isCompleted,
-      })
-      */
+
     const task = taskList.find((task) => task.id === id);
     // console.log(task);
     const completedDays = task.completedDays || []; // Get the existing completedDays array or initialize it if it doesn't exist
 
     if (isCompleted) {
-      completedDays.push(date); // Add the date to completedDays
+      if (!completedDays.includes(date)) {
+        completedDays.push(date); // Add the date to completedDays if it is not already present
+      }
     } else {
       const dateIndex = completedDays.indexOf(date);
       if (dateIndex !== -1) {
@@ -81,19 +67,15 @@ const TaskName = () => {
   };
 
   const deleteHandler = async (id) => {
-    /*
-    // as we are not using Redux for the CRUD operations we dont need this 
-     dispatch(removeTask({ id }));
-    */
-     const updatedTaskList = [...taskList];
-     const index = updatedTaskList.findIndex((task) => task.id === id);
-     updatedTaskList.splice(index, 1);
-     setTaskList(updatedTaskList);
+    const updatedTaskList = [...taskList];
+    const index = updatedTaskList.findIndex((task) => task.id === id);
+    updatedTaskList.splice(index, 1);
+    setTaskList(updatedTaskList);
 
-     const taskDocRef = collection(firestore, "tasks");
-     const snapshot = await getDocs(taskDocRef);
-     const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
-     await deleteDoc(taskRef);
+    const taskDocRef = collection(firestore, "tasks");
+    const snapshot = await getDocs(taskDocRef);
+    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
+    await deleteDoc(taskRef);
   };
 
   const moveToDetailshandler = (id) => {

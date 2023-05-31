@@ -1,17 +1,6 @@
-import { useSelector } from "react-redux";
 import classes from "./SpecificTaskName.module.css";
-import { useParams } from "react-router-dom";
 
-const SpecificTaskName = () => {
-  // Accessing the tasks from the Redux store using the useSelector hook
-  const tasks = useSelector((state) => state.habits.tasks);
-
-  // Accessing the 'id' parameter from the URL using the useParams hook
-  const { id } = useParams();
-
-  // Finding the task with the matching id
-  const task = tasks.find((task) => task.id === id);
-
+const SpecificTaskName = ({ task }) => {
   return (
     <div className={classes.wrapper}>
       {/* Rendering the task title */}

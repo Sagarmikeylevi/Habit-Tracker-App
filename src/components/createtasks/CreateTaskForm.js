@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 import { v4 as uuidv4 } from "uuid"; // Import the v4 function from the uuid library
 import classes from "./CreateTaskForm.module.css";
 import Card from "../UI/Card";
-import { addTask } from "../../store/habitSlice";
 import { useState } from "react";
 import { firestore } from "../HabitTracker";
 import { addDoc, collection } from "firebase/firestore";
@@ -36,8 +34,6 @@ const CreateTaskForm = () => {
     });
   };
 
-  // Redux dispatch hook to dispatch actions
-  const dispatch = useDispatch();
 
   // React Router hook to access the URL parameters
   const { link } = useParams();
@@ -69,9 +65,6 @@ const CreateTaskForm = () => {
      try {
       const tasksCollectionRef = collection(firestore, "tasks");
       await addDoc(tasksCollectionRef, newTask);
-
-      // Dispatching an action to add the task to the Redux store
-      dispatch(addTask(newTask));
 
       // Navigating back to the home page
       navigate("/");
