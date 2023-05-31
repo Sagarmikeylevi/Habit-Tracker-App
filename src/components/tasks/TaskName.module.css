@@ -134,3 +134,14 @@
   visibility: visible;
 }
 
+.noTasks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+  color: darkgray;
+  letter-spacing: 1px;
+}
+

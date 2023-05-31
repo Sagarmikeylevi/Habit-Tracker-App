@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import classes from "./SpecificTaskName.module.css";
 
 const SpecificTaskName = ({ task }) => {
   return (
     <div className={classes.wrapper}>
       {/* Rendering the task title */}
-      <h2>{task.title}</h2>
+      <Link to="..">
+        <h2>{task.title}</h2>
+      </Link>
 
       {/* Rendering the task frequency based on the number of days */}
       <p>

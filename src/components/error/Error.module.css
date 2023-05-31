@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 20rem;
+  width: 30rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  font-size: 32px;
+  color: #ff0000;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 20px;
+  color: #555555;
+  margin-bottom: 40px;
+}
+
+.errorIcon {
+  font-size: 6rem;
+  color: #ff0000;
+  margin-bottom: 20px;
+}

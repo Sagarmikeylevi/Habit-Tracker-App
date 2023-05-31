@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import Home from "../pages/Home";
 import Category from "../pages/Category";
 import TaskForm from "../pages/TaskForm";
 import TaskDetails from "../pages/TaskDetails";
-
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import ErrorPage from "../pages/ErrorPage";
 
 // web app's Firebase configuration
 const firebaseConfig = {
@@ -25,6 +25,7 @@ export const firestore = getFirestore(app);
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     children: [
       // Define the Home component as the default/index route
       { index: true, element: <Home /> },

@@ -7,6 +7,10 @@
     justify-content: center;
 }
 
+a {
+    text-decoration: none;
+}
+
 .wrapper h2 {
     padding-top: 1.5rem;
     font-size: medium;

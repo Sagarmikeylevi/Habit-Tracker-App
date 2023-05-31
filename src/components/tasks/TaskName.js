@@ -1,26 +1,25 @@
-import classes from "./TaskName.module.css";
-import { FaCheck, FaTrash } from "react-icons/fa";
-import { useEffect, useState } from "react";
-
-import { useNavigate } from "react-router-dom";
-import { firestore } from "../HabitTracker";
-import { collection, deleteDoc, getDocs, updateDoc } from "firebase/firestore";
+import Loading from "../UI/Loading"; // Import the Loading component
+import classes from "./TaskName.module.css"; // Import CSS module styles
+import { FaCheck, FaTrash } from "react-icons/fa"; // Import icons from react-icons library
+import { useEffect, useState } from "react"; // Import necessary hooks from React
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook from react-router-dom
+import { firestore } from "../HabitTracker"; // Import the firestore instance from HabitTracker module
+import { collection, deleteDoc, getDocs, updateDoc } from "firebase/firestore"; // Import Firestore functions
 
 const TaskName = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
-  const [taskList, setTaskList] = useState([]); // State to hold the taskList data
+  const [taskList, setTaskList] = useState(null); // Initialize state variable for taskList
+  const [taskCompletionStates, setTaskCompletionStates] = useState([]); // Initialize state variable for taskCompletionStates
 
-  const [taskCompletionStates, setTaskCompletionStates] = useState(
-    Array(taskList.length).fill(false)
-  );
+  const date = new Date().getDate(); // Get the current date
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const data = collection(firestore, "tasks");
-        const tasksSnapshot = await getDocs(data);
-        const taskList = tasksSnapshot.docs.map((doc) => doc.data());
+        const data = collection(firestore, "tasks"); // Get the collection reference to "tasks"
+        const tasksSnapshot = await getDocs(data); // Fetch the tasks documents
+        const taskList = tasksSnapshot.docs.map((doc) => doc.data()); // Extract the data from documents
         // Set the taskList in component state
         setTaskList(taskList);
       } catch (error) {
@@ -29,7 +28,11 @@ const TaskName = () => {
     };
 
     fetchTasks();
-  }, [setTaskCompletionStates]);
+  }, []);
+
+  if (!taskList) {
+    return <Loading />; // If taskList is null, render the Loading component
+  }
 
   const toggleTaskCompletion = async (index, id) => {
     setTaskCompletionStates((prevState) => {
@@ -39,7 +42,7 @@ const TaskName = () => {
     });
 
     // Determine whether to add or remove the date from completedDays
-    const date = new Date().getDate();
+
     const isCompleted = !taskCompletionStates[index];
 
     const task = taskList.find((task) => task.id === id);
@@ -60,10 +63,10 @@ const TaskName = () => {
     // console.log(task);
 
     //Update the completedDays field in Firestore
-    const taskDocRef = collection(firestore, "tasks");
-    const snapshot = await getDocs(taskDocRef);
-    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
-    await updateDoc(taskRef, { completedDays });
+    const taskDocRef = collection(firestore, "tasks"); // Get the collection reference to "tasks"
+    const snapshot = await getDocs(taskDocRef); // Fetch the tasks documents
+    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref; // Find the document reference with matching id
+    await updateDoc(taskRef, { completedDays }); // Update the completedDays field in the document
   };
 
   const deleteHandler = async (id) => {
@@ -72,21 +75,26 @@ const TaskName = () => {
     updatedTaskList.splice(index, 1);
     setTaskList(updatedTaskList);
 
-    const taskDocRef = collection(firestore, "tasks");
-    const snapshot = await getDocs(taskDocRef);
-    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref;
-    await deleteDoc(taskRef);
+    const taskDocRef = collection(firestore, "tasks"); // Get the collection reference to "tasks"
+    const snapshot = await getDocs(taskDocRef); // Fetch the tasks documents
+    const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref; // Find the document reference with matching id
+    await deleteDoc(taskRef); // Delete the document from Firestore
   };
 
   const moveToDetailshandler = (id) => {
-    navigate(`/task/${id}`);
+    navigate(`/task/${id}`); // Navigate to the task details page
   };
 
   return (
     <div className={classes.wrapper}>
+      {taskList.length === 0 && (
+        <div className={classes.noTasks}>
+          <p>No Tasks Found</p>
+        </div>
+      )}
       <ul className={classes.taskBarList}>
         {taskList.map((task, index) => {
-          const isTaskCompleted = taskCompletionStates[index];
+          const isTaskCompleted = task.completedDays.includes(date);
 
           const taskBarCondition = isTaskCompleted
             ? classes.checkedTaskBar
