@@ -18,7 +18,6 @@ const SpecificTask = () => {
       const snapshot = await getDocs(taskDocRef); // Fetch the tasks documents
       const taskRef = snapshot.docs.find((doc) => doc.data().id === id)?.ref; // Find the document reference with matching id
       const taskDetails = (await getDoc(taskRef)).data(); // Get the data from the document
-      console.log(taskDetails);
       setTask(taskDetails); // Set the task details in component state
     };
 

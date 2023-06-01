@@ -46,11 +46,18 @@ const CustomCalendar = ({ task }) => {
   const countStreaks = () => {
     let streakCount = 0;
     let longestStreak = 0;
-
+     
     const currentDate = new Date().getDate();
 
+    // thsi is because if there is null in calenderDates 
+    let count = 0;
+    for(let i = 0; i<7; i++) {
+      if(calendarDates[i] != null) break;
+      count ++;
+    }
+
     for (let i = 0; i <= currentDate; i++) {
-      const date = calendarDates[i];
+      const date = calendarDates[i + count - 1];
 
       if (date) {
         const dayOfMonth = date.getDate();

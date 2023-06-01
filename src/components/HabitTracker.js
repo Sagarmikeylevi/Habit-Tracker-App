@@ -9,12 +9,12 @@ import ErrorPage from "../pages/ErrorPage";
 
 // web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAw2J99mp2vbRY0NXZLlSyjiRwMVhq-U4g",
-  authDomain: "habit-tracker-c0c92.firebaseapp.com",
-  projectId: "habit-tracker-c0c92",
-  storageBucket: "habit-tracker-c0c92.appspot.com",
-  messagingSenderId: "300304445526",
-  appId: "1:300304445526:web:e3d041e113df7592268bf7",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
