@@ -21,6 +21,7 @@ The Habit Tracker App is built using the following technologies:
 - HTML: The markup language for creating the structure and layout of the user interface.
 - CSS: The styling language used to enhance the visual appearance of the Habit Tracker App.
 
+![HabitTracker-1](https://github.com/Sagarmikeylevi/Habit-Tracker-App/assets/114811573/a2570982-94a8-4780-9e83-2d87b5a313a9)
 
 
 ## Installation
