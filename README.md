@@ -23,7 +23,7 @@ The Habit Tracker App is built using the following technologies:
 
 ![HabitTracker-1](https://github.com/Sagarmikeylevi/Habit-Tracker-App/assets/114811573/a2570982-94a8-4780-9e83-2d87b5a313a9)
 ![HabitTraker-2](https://github.com/Sagarmikeylevi/Habit-Tracker-App/assets/114811573/cc539d71-9fd5-4423-b8c5-2be627e22a59)
-
+![HabitTracker-3](https://github.com/Sagarmikeylevi/Habit-Tracker-App/assets/114811573/0367e104-0936-47c0-88ba-fcbaa479f04f)
 
 
 ## Installation
