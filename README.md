@@ -36,7 +36,7 @@ To run the Habit Tracker App locally, follow these steps:
 - Start the application with npm start.
 
 ## Deployment
-Project already deployed on netlify. Visit: https://sagarmikeylevi-habit-tracker.netlify.app/
+Project already deployed on netlify. Visit: https://habittracker123.netlify.app/
 
 ## Video
 Link: https://www.youtube.com/watch?v=DfLeHKhpCuI
