@@ -9,9 +9,9 @@ import { firestore } from "../HabitTracker";
 import { addDoc, collection } from "firebase/firestore";
 
 const CreateTaskForm = () => {
-  
   const [taskTitle, setTaskTitle] = useState("");
   const [taskFrequency, setTaskFrequency] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Event handler for updating the task title
   const taskTitleHandler = (event) => {
@@ -34,7 +34,6 @@ const CreateTaskForm = () => {
     });
   };
 
-
   // React Router hook to access the URL parameters
   const { link } = useParams();
 
@@ -48,9 +47,15 @@ const CreateTaskForm = () => {
   const addTaskHandler = async (event) => {
     event.preventDefault();
 
+    // Check if the task title is empty
+    if (taskTitle.trim() === "") {
+      setErrorMessage("Task title cannot be empty");
+      return;
+    }
+
     // Creating a new task object with the provided information
     const newTask = {
-      id: uuidv4(),// Generate a unique ID using uuidv4()
+      id: uuidv4(), // Generate a unique ID using uuidv4()
       title: taskTitle,
       categoryURL: decodedLink,
       numOfDays: taskFrequency,
@@ -61,8 +66,8 @@ const CreateTaskForm = () => {
       completedDays: [],
     };
 
-     // Add the new task to Firestore
-     try {
+    // Add the new task to Firestore
+    try {
       const tasksCollectionRef = collection(firestore, "tasks");
       await addDoc(tasksCollectionRef, newTask);
 
@@ -97,6 +102,7 @@ const CreateTaskForm = () => {
           onChange={taskTitleHandler}
           value={taskTitle}
         />
+        {errorMessage && <p className={classes.error}>{errorMessage}</p>}
         <div className={classes.taskFrequency}>
           {showFrequency}
           <div className={classes.frequencyCounter}>
